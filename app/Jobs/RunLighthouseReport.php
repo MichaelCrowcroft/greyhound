@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Spatie\Lighthouse\Lighthouse;
 
 class RunLighthouseReport implements ShouldQueue
@@ -37,7 +38,7 @@ class RunLighthouseReport implements ShouldQueue
     {
         $report = Lighthouse::url($this->lighthouse_report->url)->run();
         $scores = $report->scores();
-        LighthouseReportData::create([
+        $lighthouse_report_data = LighthouseReportData::create([
             'lighthouse_report_id' => $this->lighthouse_report->id,
             'performance' => $scores['performance'],
             'accessibility' => $scores['accessibility'],
@@ -45,5 +46,6 @@ class RunLighthouseReport implements ShouldQueue
             'seo' => $scores['seo'],
             'pwa' => $scores['pwa'],
         ]);
+        Log::info('Job run for ' . $lighthouse_report_data);
     }
 }

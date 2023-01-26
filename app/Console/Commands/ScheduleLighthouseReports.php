@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\RunLighthouseReport;
 use App\Models\LighthouseReport;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Spatie\Lighthouse\Lighthouse;
 
 class ScheduleLighthouseReports extends Command
@@ -31,10 +32,11 @@ class ScheduleLighthouseReports extends Command
     public function handle()
     {
         $lighthouse_reports = LighthouseReport::all();
-        foreach($lighthouse_reports as $Lighthouse_report) {
-            RunLighthouseReport::dispatch($Lighthouse_report);
+        foreach($lighthouse_reports as $lighthouse_report) {
+            RunLighthouseReport::dispatch($lighthouse_report);
+            Log::info('Lighthouse report for URL: ' . $lighthouse_report->url . ' scheduled');
         }
 
-        echo 'Lighthouse Reports queued';
+        Log::info('All lighthouse reports scheduled');
     }
 }
