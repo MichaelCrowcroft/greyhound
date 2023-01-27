@@ -38,7 +38,6 @@ class RunLighthouseReport implements ShouldQueue
     {
         $report = Lighthouse::url($this->lighthouse_report->url)->timeoutInSeconds(600)->run();
         $scores = $report->scores();
-        dd($report->scores());
         $lighthouse_report_data = LighthouseReportData::create([
             'lighthouse_report_id' => $this->lighthouse_report->id,
             'performance' => $scores['performance'],
