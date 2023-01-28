@@ -36,9 +36,9 @@ class RunLighthouseReport implements ShouldQueue
      */
     public function handle()
     {
-        $report = Lighthouse::url($this->lighthouse_report->url)->timeoutInSeconds(600)->run();
+        $report = Lighthouse::url($this->lighthouse_report->url)->timeoutInSeconds(6000)->run();
         $scores = $report->scores();
-        $lighthouse_report_data = LighthouseReportData::create([
+        LighthouseReportData::create([
             'lighthouse_report_id' => $this->lighthouse_report->id,
             'performance' => $scores['performance'],
             'accessibility' => $scores['accessibility'],
@@ -46,6 +46,5 @@ class RunLighthouseReport implements ShouldQueue
             'seo' => $scores['seo'],
             'pwa' => $scores['pwa'],
         ]);
-        Log::info('Job run for ' . $lighthouse_report_data);
     }
 }

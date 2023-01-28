@@ -34,9 +34,6 @@ class ScheduleLighthouseReports extends Command
         $lighthouse_reports = LighthouseReport::all();
         foreach($lighthouse_reports as $lighthouse_report) {
             RunLighthouseReport::dispatch($lighthouse_report);
-            Log::info('Lighthouse report for URL: ' . $lighthouse_report->url . ' scheduled');
         }
-
-        Log::info('All lighthouse reports scheduled');
     }
 }
