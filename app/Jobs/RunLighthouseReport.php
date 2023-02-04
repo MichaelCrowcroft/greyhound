@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
+use Spatie\Lighthouse\Enums\Category;
 use Spatie\Lighthouse\Lighthouse;
 
 class RunLighthouseReport implements ShouldQueue
@@ -36,7 +36,9 @@ class RunLighthouseReport implements ShouldQueue
      */
     public function handle()
     {
-        $report = Lighthouse::url($this->lighthouse_report->url)->timeoutInSeconds(6000)->run();
+        $report = Lighthouse::url($this->lighthouse_report->url)
+            ->timeoutInSeconds(6000)
+            ->run();
         $scores = $report->scores();
         LighthouseReportData::create([
             'lighthouse_report_id' => $this->lighthouse_report->id,
@@ -46,5 +48,6 @@ class RunLighthouseReport implements ShouldQueue
             'seo' => $scores['seo'],
             'pwa' => $scores['pwa'],
         ]);
+        shell_exec("killall chrome");
     }
 }
