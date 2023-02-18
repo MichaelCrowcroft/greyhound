@@ -9,7 +9,7 @@ class Kernel extends ConsoleKernel
 {
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('lighthouse-reports:schedule')->daily();
+        $schedule->command('lighthouse-reports:schedule')->hourly();
     }
 
     /**

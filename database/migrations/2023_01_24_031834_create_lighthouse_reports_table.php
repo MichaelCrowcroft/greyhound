@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lighthouse_report_data', function (Blueprint $table) {
+        Schema::create('lighthouse_reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lighthouse_report_id');
+            $table->unsignedBigInteger('lighthouse_reportable_id');
+            $table->string('lighthouse_reportable_type');
 
             $table->integer('performance');
             $table->integer('accessibility');
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lighthouse_report_data');
+        Schema::dropIfExists('lighthouse_reports');
     }
 };

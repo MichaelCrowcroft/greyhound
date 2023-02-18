@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: null,
+    url: null,
 });
 
 let submit = () => {
@@ -30,7 +31,6 @@ let submit = () => {
         <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="Name" />
-
                 <TextInput
                     id="name"
                     type="text"
@@ -38,10 +38,19 @@ let submit = () => {
                     v-model="form.name"
                     required
                     autofocus
-                    autocomplete="name"
                 />
-
                 <InputError class="mt-2" :message="form.errors.name" />
+
+                <InputLabel class="mt-4" for="url" value="Homepage URL" />
+                <TextInput
+                    id="name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.url"
+                    required
+                />
+                <InputError class="mt-2" :message="form.errors.url" />
+
             </div>
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>

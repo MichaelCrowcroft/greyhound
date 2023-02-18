@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\LighthouseReport;
-use App\Models\LighthouseReportData;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,16 +16,16 @@ class RunLighthouseReport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $lighthouse_report;
+    public $company;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(LighthouseReport $lighthouse_report)
+    public function __construct($company)
     {
-        return $this->lighthouse_report = $lighthouse_report;
+        return $this->company = $company;
     }
 
     /**
@@ -36,12 +35,14 @@ class RunLighthouseReport implements ShouldQueue
      */
     public function handle()
     {
-        $report = Lighthouse::url($this->lighthouse_report->url)
+        $report = Lighthouse::url($this->company->url)
             ->timeoutInSeconds(6000)
             ->run();
         $scores = $report->scores();
-        LighthouseReportData::create([
-            'lighthouse_report_id' => $this->lighthouse_report->id,
+        LighthouseReport::create([
+            'lighthouse_reportable_id' => $this->company->id,
+            'lighthouse_reportable_type' => get_class($this->company),
+
             'performance' => $scores['performance'],
             'accessibility' => $scores['accessibility'],
             'best_practices' => $scores['best-practices'],

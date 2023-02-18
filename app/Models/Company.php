@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Company extends Model
 {
@@ -14,13 +15,17 @@ class Company extends Model
 
     protected $with = ['lighthouseReports'];
 
-    public function lighthouseReports(): HasMany
+    protected $casts = [
+        'is_primary' => 'boolean',
+    ];
+
+    public function lighthouseReports(): MorphMany
     {
-        return $this->hasMany(LighthouseReport::class);
+        return $this->morphMany(LighthouseReport::class, 'lighthouse_reportable');
     }
 
-    public function addLighthouseReport($url)
+    public function user(): BelongsTo
     {
-        return $this->lighthouseReports()->create(['url' => $url]);
+        return $this->belongsTo(User::class);
     }
 }

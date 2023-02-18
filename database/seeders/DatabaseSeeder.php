@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.xero.com']);
-        LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.quickbooks.com']);
-        LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.myob.com']);
+        // LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.xero.com']);
+        // LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.quickbooks.com']);
+        // LighthouseReport::factory()->forCompany()->create(['url' => 'https://www.myob.com']);
     }
 }

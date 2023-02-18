@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\RunLighthouseReport;
+use App\Models\Company;
 use App\Models\LighthouseReport;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -31,9 +32,9 @@ class ScheduleLighthouseReports extends Command
      */
     public function handle()
     {
-        $lighthouse_reports = LighthouseReport::all();
-        foreach($lighthouse_reports as $lighthouse_report) {
-            RunLighthouseReport::dispatch($lighthouse_report);
+        $companies = Company::all();
+        foreach($companies as $company) {
+            RunLighthouseReport::dispatch($company);
         }
     }
 }

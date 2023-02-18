@@ -13,6 +13,7 @@ const props = defineProps({
 
 const form = useForm({
     name: props.company.name,
+    url: props.company.url,
 });
 
 let submit = () => {
