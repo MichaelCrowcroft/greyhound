@@ -1,10 +1,11 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CreateCompanyForm from './Partials/CreateCompanyForm.vue';
-import { Link } from '@inertiajs/vue3'
-import { Head } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3'
 
-defineProps({ companies: Object })
+defineProps({
+    companies: Object
+})
 </script>
 
 <template>
@@ -27,8 +28,7 @@ defineProps({ companies: Object })
                     <p class="font-thin text-sm">{{ company.url }}</p>
                 </div>
             </div>
-
-            <div class="p-12">
+            <div class="p-12" v-if="Object.keys(companies).length < 5">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <CreateCompanyForm />
                 </div>

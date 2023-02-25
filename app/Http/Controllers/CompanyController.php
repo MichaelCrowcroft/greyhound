@@ -12,9 +12,9 @@ class CompanyController extends Controller
 {
     public function index(): Response
     {
-        $companies = Company::all();
+        $companies = auth()->user()->companies()->get()->take(5);
         return Inertia::render('Companies/Index', [
-            'companies' => $companies
+            'companies' => $companies,
         ]);
     }
 
