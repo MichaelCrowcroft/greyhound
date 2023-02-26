@@ -25,6 +25,7 @@ class RunLighthouseReport implements ShouldQueue
      */
     public function __construct($company)
     {
+        $this->onQueue('lighthouse');
         return $this->company = $company;
     }
 
@@ -39,6 +40,7 @@ class RunLighthouseReport implements ShouldQueue
             ->timeoutInSeconds(6000)
             ->run();
         $scores = $report->scores();
+
         LighthouseReport::create([
             'lighthouse_reportable_id' => $this->company->id,
             'lighthouse_reportable_type' => get_class($this->company),
@@ -51,5 +53,10 @@ class RunLighthouseReport implements ShouldQueue
         ]);
         shell_exec("killall chrome");
         sleep(30);
+    }
+
+    public function failed(): void
+    {
+        shell_exec("killall chrome");
     }
 }
