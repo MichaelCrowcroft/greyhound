@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CreateCompanyForm from './Partials/CreateCompanyForm.vue';
+import Line from './Partials/IndexCompanyLineChart.vue';
+
 import { Link, Head } from '@inertiajs/vue3'
 
 defineProps({
@@ -28,6 +30,13 @@ defineProps({
                     <p class="font-thin text-sm">{{ company.url }}</p>
                 </div>
             </div>
+
+            <div class="p-12" v-if="Object.keys(companies[0].lighthouse_reports).length > 1">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <Line :companies="companies" />
+                </div>
+            </div>
+
             <div class="p-12" v-if="Object.keys(companies).length < 5">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <CreateCompanyForm />

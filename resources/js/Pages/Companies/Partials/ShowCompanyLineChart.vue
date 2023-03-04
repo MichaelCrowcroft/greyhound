@@ -51,5 +51,6 @@ const options = {
 </script>
 
 <template>
+    {{  company.lighthouse_reports.map(({ best_practices }) => best_practices) }}
     <Line :data="chartData" :options="options" />
 </template>

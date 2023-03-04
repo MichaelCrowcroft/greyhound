@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import EditCompanyNameForm from './Partials/EditCompanyNameForm.vue';
-import Line from './Partials/Line.vue';
+import Line from './Partials/ShowCompanyLineChart.vue';
 
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
