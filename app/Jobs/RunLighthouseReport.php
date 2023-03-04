@@ -52,7 +52,6 @@ class RunLighthouseReport implements ShouldQueue
             'pwa' => $scores['pwa'],
         ]);
         shell_exec("killall chrome");
-        sleep(30);
     }
 
     public function failed(): void

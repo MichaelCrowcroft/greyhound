@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import EditCompanyNameForm from './Partials/EditCompanyNameForm.vue';
+import Line from './Partials/Line.vue';
 
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
@@ -9,7 +10,6 @@ defineProps({
     company: Object,
 })
 const editingCompanyName = ref(false);
-
 </script>
 
 <template>
@@ -29,9 +29,8 @@ const editingCompanyName = ref(false);
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div v-for="lighthouse_report in company.lighthouse_reports" :key="lighthouse_report.id"
-                        class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                    <p>{{ lighthouse_report.performance }}</p>
+                <div class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                    <Line :company="company" />
                 </div>
             </div>
         </div>
