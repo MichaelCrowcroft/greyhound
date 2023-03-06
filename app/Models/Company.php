@@ -13,8 +13,6 @@ class Company extends Model
 
     protected $guarded = [];
 
-    protected $with = ['lighthouseReports'];
-
     protected $casts = [
         'is_primary' => 'boolean',
     ];
