@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\LighthouseReport;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -12,19 +14,30 @@ class CompanyController extends Controller
 {
     public function index(): Response
     {
+        $start = Carbon::now()->subDays(7)->startOfDay(); //Make dates adjustable as an input
+        $end = Carbon::now()->subDays(1)->endOfDay();
+        $period = CarbonPeriod::create($start, $end);
+        $dates = collect($period->toArray())->mapWithKeys(function ($date) {
+            return [$date->toDateTimeImmutable()->format('Y-m-d H:i:s') => [
+                'performance' => null,
+            ]];
+        });
+
         $companies = auth()
             ->user()
             ->companies()
-            ->with('lighthouseReports') //make this a closure where we do with where between date x and y.
+            ->with(['lighthouseReports' => function (Builder $query) use ($start, $end) {
+                $query->whereDate('created_at', '>=', $start);
+                $query->whereDate('created_at', '<=', $end);
+            }])
             ->take(5)
             ->get();
+        $lighthouse_reports = $companies->pluck('lighthouseReports', 'name');
 
-        //make a collection for the date range selected in the where clause
-
-        // split reports into their own collections
-        $lighthouse_reports = $companies->pluck('lighthouseReports');
-
-        // match by date (and add null when nothing available)
+        $lighthouse_reports = $lighthouse_reports->map(function ($item) use ($dates){
+            $item = collect($item->keyBy('created_at')->toArray()); //Set the date as the key for records
+            return $dates->merge($item); // Where there is a matching date with our prreset range returrn the corrosponding record, if not reutnr a null.
+        })->toArray();
 
 
         return Inertia::render('Companies/Index', [

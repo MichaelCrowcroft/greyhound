@@ -5,20 +5,20 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const props = defineProps({
-    companies: Object
+    data: Object
 })
 
-const chartData = {
-    labels: props.companies[0].lighthouse_reports.map(({ created_at }) => new Date(created_at).toDateString()),
-    datasets: props.companies.map(( item ) => {
-        let company = {
-            label: item.name,
-            data: item.lighthouse_reports.map(({ accessibility }) => accessibility)
-        }
-        return company
-    }),
-    tension: 0.1,
+let datasets = array_combine(
+    Object.values(Object.values(props.data)).map(item => Object.values(item).map(item => item.performance)),
+    Object.keys(props.data)
+)
 
+const chartData = {
+    labels: Object.keys(Object.values(props.data)[0]).map(date => new Date(date).toDateString()),
+    datasets: [{
+        label: 'test',
+        data: Object.values(Object.values(props.data)[2]).map(item => item.performance)
+    }],
 }
 
 const options = {
@@ -32,12 +32,6 @@ const options = {
 </script>
 
 <template>
-    {{ companies.map(( item ) => {
-        let company = {
-            label: item.name,
-            data: item.lighthouse_reports.map(({ accessibility }) => accessibility)
-        }
-        return company
-    }) }}
+    {{ datasets }}
     <Line :data="chartData" :options="options" />
 </template>

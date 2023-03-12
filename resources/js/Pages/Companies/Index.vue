@@ -5,8 +5,9 @@ import Line from './Partials/IndexCompanyLineChart.vue';
 
 import { Link, Head } from '@inertiajs/vue3'
 
-defineProps({
-    companies: Object
+const props = defineProps({
+    companies: Object,
+    lighthouse_reports: Object,
 })
 </script>
 
@@ -33,7 +34,7 @@ defineProps({
 
             <div class="p-12" v-if="Object.keys(companies[0].lighthouse_reports).length > 1">
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <Line :companies="companies" />
+                    <Line :data="lighthouse_reports" />
                 </div>
             </div>
 

@@ -12,6 +12,10 @@ class LighthouseReport extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'date',
+    ];
+
     public function lighthouse_reportable(): MorphTo
     {
         return $this->morphTo();
