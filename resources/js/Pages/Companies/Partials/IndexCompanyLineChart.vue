@@ -11,7 +11,7 @@ const props = defineProps({
 
 const companies = Object.keys(props.data)
 const values = Object.values(Object.values(props.data)).map(item => Object.values(item).map(item => item.performance))
-const colors = ['#13B5EA', '2CA01C', '#0075DD', '#2047CE', '#00D639']
+const colors = ['#13B5EA', '#2CA01C', '#0075DD', '#2047CE', '#00D639']
 const datasets = companies.map((company, index) => [{
     label: company,
     data: values[index],
