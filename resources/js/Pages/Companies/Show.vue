@@ -18,7 +18,9 @@ const editingCompanyName = ref(false);
     <AuthenticatedLayout>
         <template #header>
             <div v-if="!editingCompanyName" class="flex justify-between">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ company.name }}</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    <Link :href="'/companies'">Companies</Link> / {{ company.name }}
+                </h2>
                 <button @click="editingCompanyName = !editingCompanyName">Edit</button>
             </div>
             <div v-if="editingCompanyName" class="flex justify-between">
