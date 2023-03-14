@@ -13,26 +13,26 @@ const chartData = {
     datasets: [
         {
             label: 'Performance',
-            backgroundColor: '#ff0000',
-            borderColor: '#ff0000',
+            backgroundColor: '#4d7c0f',
+            borderColor: '#4d7c0f',
             data: props.company.lighthouse_reports.map(({ performance }) => performance)
         },
         {
             label: 'SEO',
-            backgroundColor: '#00ff00',
-            borderColor: '#00ff00',
+            backgroundColor: '#1d4ed8',
+            borderColor: '#1d4ed8',
             data: props.company.lighthouse_reports.map(({ seo }) => seo)
         },
         {
             label: 'Accessibility',
-            backgroundColor: '#0000ff',
-            borderColor: '#0000ff',
+            backgroundColor: '#a21caf',
+            borderColor: '#a21caf',
             data: props.company.lighthouse_reports.map(({ accessibility }) => accessibility)
         },
         {
             label: 'Best Practices',
-            backgroundColor: '#f0f000',
-            borderColor: '#f0f000',
+            backgroundColor: '#be123c',
+            borderColor: '#be123c',
             data: props.company.lighthouse_reports.map(({ best_practices }) => best_practices)
         }
     ],
