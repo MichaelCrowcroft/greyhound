@@ -7,7 +7,7 @@ use App\Models\LighthouseReport;
 use Illuminate\Console\Command;
 use Spatie\Lighthouse\Lighthouse;
 
-class ScheduleLighthouseReports extends Command
+class RunLighthouseReport extends Command
 {
     /**
      * The name and signature of the console command.
