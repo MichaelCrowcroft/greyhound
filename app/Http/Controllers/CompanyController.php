@@ -14,7 +14,8 @@ class CompanyController extends Controller
 {
     public function index(): Response
     {
-        $start = Carbon::now()->subDays(7)->startOfDay(); //Make dates adjustable as an input
+        // TODO Refactor oh boooy
+        $start = Carbon::now()->subDays(7)->startOfDay();
         $end = Carbon::now()->subDays(1)->endOfDay();
         $period = CarbonPeriod::create($start, $end);
         $dates = collect($period->toArray())->mapWithKeys(function ($date) {
@@ -73,7 +74,7 @@ class CompanyController extends Controller
 
     public function show(Company $company): Response
     {
-        $company = Company::with('lighthouseReports')->find($company->id);
+        $company = Company::with(['lighthouseReports', 'landingPages'])->find($company->id);
         return Inertia::render('Companies/Show', [
             'company' => $company,
         ]);

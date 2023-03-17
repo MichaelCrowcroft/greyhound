@@ -5,13 +5,17 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 
+const props = defineProps({
+    company: Object
+})
+
 const form = useForm({
     name: null,
     url: null,
 });
 
 let submit = () => {
-    form.post('/companies', {
+    form.post('/companies/' + props.company.id + '/landing-pages', {
         preserveScroll: true,
         onSuccess: () => form.reset(),
     })
@@ -21,10 +25,10 @@ let submit = () => {
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Companies</h2>
+            <h2 class="text-lg font-medium text-gray-900">Landing Pages</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Create a company
+                Start monitoring a landing page.
             </p>
         </header>
 
@@ -41,7 +45,7 @@ let submit = () => {
                 />
                 <InputError class="mt-2" :message="form.errors.name" />
 
-                <InputLabel class="mt-4" for="url" value="Homepage URL" />
+                <InputLabel class="mt-4" for="url" value="Landing Page URL" />
                 <TextInput
                     id="name"
                     type="text"

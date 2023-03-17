@@ -21,7 +21,7 @@
         "chart.js": "^4.2.1",
         "chrome-launcher": "^0.15.1",
         "lighthouse": "^9.6.8",
-        "puppeteer": "^19.7.2",
+        "puppeteer": "^19.7.5",
         "vue-chartjs": "^5.2.0"
     }
 }
