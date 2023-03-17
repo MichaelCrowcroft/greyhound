@@ -22,7 +22,7 @@ class LandingPageController extends Controller
 
     public function show(Company $company, LandingPage $landing_page)
     {
-        LandingPage::with('landingPageSnapshots')->find($landing_page->id);
+        $landing_page = LandingPage::with('landingPageSnapshots')->find($landing_page->id);
         return Inertia::render('LandingPages/Show', [
             'landing_page' => $landing_page,
             'company' => $company

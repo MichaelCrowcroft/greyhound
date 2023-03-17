@@ -33,8 +33,7 @@ const editingCompanyName = ref(false);
         <div class="py-12">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div v-for="landing_page in company.landing_pages" :key="landing_page.id"
-                    class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-                >
+                    class="w-full mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                     <Link :href="'/companies/' + company.id + '/landing-pages/' + landing_page.id" class="font-semibold text-lg">
                         {{ landing_page.name }}
                     </Link>

@@ -25,7 +25,7 @@ class LandingPage extends Model
 
     public function addLandingPageSnapshot($page): LandingPageSnapshot
     {
-        return $this->landingPagesSnapshots()->create([
+        return $this->landingPageSnapshots()->create([
             'page' => $page,
         ]);
     }
